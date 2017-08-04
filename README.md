@@ -97,11 +97,25 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 
 [Convolutional Two-Stream Network Fusion for Video Action Recognition-\(2016CVPR）](https://arxiv.org/pdf/1604.06573.pdf)
 
-最后是最近的2016年的成果，在双流的基础上的改进。
+最后是最近的2016年的成果，在双流和3D卷积的基础上的改进。
 
 这篇文章采用学习大量融合Convent的既有tower是spatially空间的 还有patio-temporal 时间的.使用了如下方式：
 
 与softmax层融合相比,一个时空网络层可以融合但是不失性能.最后一层融合比较好.池化抽象卷积在相邻时空的特征会提升性能。
 
 在原有双流论文中，时间和空间两个神经网络的融合是最后一步，结果取平均或者SVM线性分类器走一遍，而本文中，作者将，两个神经网络在中间某一层就融合，如图所示：![](/assets/conv-2stream-network-network.png)左边是单纯融合一层，而右边是作者通过融合某一层，然后最后再次融合，结果表明，效果要有所提高。
+
+同时这篇文章，也描述了之前的3D卷积采样，时间和空间上的，如下图所示：![](/assets/conv-2d.png)
+
+
+
+融合是有前提和要求，在这个层，空间与网络的特征图size要一致，channel也需要一样多。channel其实就是特征图的个数，在不同层面的特征表示。
+
+
+
+
+
+
+
+
 
