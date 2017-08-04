@@ -95,6 +95,8 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 
 具体的解释就没看，比较细。
 
+一个问题是3D卷积的速度是个问题，计算量很大。
+
 [Convolutional Two-Stream Network Fusion for Video Action Recognition-\(2016CVPR）](https://arxiv.org/pdf/1604.06573.pdf)
 
 最后是最近的2016年的成果，在双流和3D卷积的基础上的改进。
@@ -107,9 +109,9 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 
 同时这篇文章，也描述了之前的3D卷积采样，时间和空间上的，如下图所示：![](/assets/conv-2d.png)
 
+融合是有前提和要求，在这个层，空间与网络的特征图size要一致，channel也需要一样多。channel其实就是特征图的个数，在不同层面的特征表示。同时，文章将基础的spatial和temporal网络换成了VGG-16网络。
 
 
-融合是有前提和要求，在这个层，空间与网络的特征图size要一致，channel也需要一样多。channel其实就是特征图的个数，在不同层面的特征表示。
 
 
 
