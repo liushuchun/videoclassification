@@ -68,10 +68,42 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 
 实现细节：卷积网络的配置，所有的隐含层用ReLU激活函数；max pooling的大小为3\*3，步长为2；时间网络和空间网络位移的不同就是，我们删除了时间网络第二层的正则化来减少内存消耗。
 
+对于时间，光流的CNN,思路：从相邻的L帧图片中，提取光流信息作为输入，然后以此为信息输入，然后表示时间。首先用，OpenCV直接获取对应的光流信息，所谓所谓光流信息分几种，传统的是定义了一个displacement——dt\(u,v\)，这个表示在t时刻对应帧上的一个点\(u,v\)，要把它移动到t+1时刻相应地方的方向向量。至于这个点具体要怎么得出，可以用OpenCV直接处理视频的帧然后得到。此外还有其他几种表示光流的方法。
+
+有了对应的光流信息之后，对于某一帧，首先空间信息就是把原图（经过处理）输入到网络，然后空间信息就是从该帧开始接下来连续的L帧，每相邻两帧之间提取所有点的光流信息作为输入，分为X轴和Y轴方向，因此设每帧长宽为w\*h个像素点，那么每帧对应的时间网络输入信息的维数就是w\*h\*2L
+
+最后，空间和时间网络分别给出动作的分类结果，然后把结果融合，使用取平均值或者SVM的方法（实验中显示SVM准确率更高），得到最终结果。
+
 代码的repo:[git code repo](https://github.com/wadhwasahil/Video-Classification-2-Stream-CNN)
 
-本文采用学习大量融合Convent的既有tower是spatially空间的 还有patio-temporal 时间的.我们达成了如下的发现：
+[3D Convolutional Neural Networks for Human Action Recognition](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.169.4046&rep=rep1&type=pdf)
+
+之前一般是2D的卷积方法，是对二维的卷积层上对特征进行采样，从而得到下一个层的特征图，形式如下：
+
+![](/assets/2d.png)
+
+3D的增加一个新的时间维度，对一定的数量的帧，用同一个3D的卷积层去采样，得到下个维度的特征，形式：
+
+![](/assets/3dconv.png)
+
+网络的结构如下：![](/assets/3dconvstructure.png)
+
+首先通过硬连接\(hardwired\)的一些kernal，抽取多通道的信息，  
+主要有gray, gradient-x, gradient-y, optflow-x,and optflow-y.这些kernal
+
+[Convolutional Two-Stream Network Fusion for Video Action Recognition-\(2016CVPR）](https://arxiv.org/pdf/1604.06573.pdf)
+
+
+
+这篇文章采用学习大量融合Convent的既有tower是spatially空间的 还有patio-temporal 时间的.使用了如下方式：
 
 与softmax层融合相比,一个时空网络层可以融合但是不失性能.最后一层融合比较好.池化抽象卷积在相邻时空的特征会提升性能。
+
+
+
+
+
+
+
 
 
