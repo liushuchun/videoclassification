@@ -48,11 +48,7 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 
 ![](/assets/figure1.png)
 
-
-
 模型结构如上图所示。![](/assets/figure2.png)光流的效果图.
-
-
 
 一些概念：
 
@@ -72,19 +68,7 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 
 实现细节：卷积网络的配置，所有的隐含层用ReLU激活函数；max pooling的大小为3\*3，步长为2；时间网络和空间网络位移的不同就是，我们删除了时间网络第二层的正则化来减少内存消耗。
 
-
-
-[git code repo](https://github.com/wadhwasahil/Video-Classification-2-Stream-CNN)
-
-
-
-
-
-
-
-
-
-
+代码的repo:[git code repo](https://github.com/wadhwasahil/Video-Classification-2-Stream-CNN)
 
 本文采用学习大量融合Convent的既有tower是spatially空间的 还有patio-temporal 时间的.我们达成了如下的发现：
 
