@@ -46,6 +46,14 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 * 求平均值
 * 一个叠放的L2正则规划的softmax得分上训练SVM线性分类器
 
+![](/assets/figure1.png)
+
+
+
+模型结构如上图所示。![](/assets/figure2.png)光流的效果图.
+
+
+
 一些概念：
 
 光流卷积网络：我们模型的输入是几个相邻帧的堆叠的光流位移。这些输入能够描述出视频帧的运动信息。
@@ -63,6 +71,14 @@ HOF基于灰度,其他基于dense optical flow\(密集光流\)，最后用Fisher
 多任务学习：因为视频训练的数据集相对较小，容易产生过拟合，为了避免这种情况的发生，我们合并多个数据集。
 
 实现细节：卷积网络的配置，所有的隐含层用ReLU激活函数；max pooling的大小为3\*3，步长为2；时间网络和空间网络位移的不同就是，我们删除了时间网络第二层的正则化来减少内存消耗。
+
+
+
+[git code repo](https://github.com/wadhwasahil/Video-Classification-2-Stream-CNN)
+
+
+
+
 
 
 
